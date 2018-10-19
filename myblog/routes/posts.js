@@ -30,7 +30,7 @@ router.post('/:postId/edit',function(req,res,next){
     res.send("更新文章")
 })
 
-router.get('/:postId/remove',function(req.res,next){
+router.get('/:postId/remove',function(req,res,next){
     res.send("删除文章")
 })
 
