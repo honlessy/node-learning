@@ -4,6 +4,15 @@ const mongolass = new Mongolass()
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
 
+
+exports.Post = mongolass.model('post',{
+    author:{type:Mongolass.Types.ObjectId,required:true},
+    title:{type:'string',required:true},
+    content:{type:'string',required:true},
+    pv:{type:'number',default:0}
+})
+exports.Post.index({author:1,_id:-1}).exec()//按创建时间降序查看用户的文章列表
+
 //根据id生成创建时间created_at
 mongolass.plugin('addCreatedAt',{
     afterFind:function(results){
