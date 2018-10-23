@@ -7,7 +7,7 @@ const checkLogin = require("../middlewares/check").checkLogin
 
 //以下是按照RESTful风格设计的路由
 router.get('/',function(req,res,next){
-    res.send("主页")
+    res.render('posts')
 })
 
 router.post('create',checkLogin,function(req,res,next){
