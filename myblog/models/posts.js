@@ -24,7 +24,7 @@ module.exports = {
     },
     //通过文章id获取文章
     getPostById:function getPostById(postId){
-        return Post.findOne({_id:postId}).populate({path:'author',module:'User'}).addCreatedAt().contentToHtml().exec()
+        return Post.findOne({_id:postId}).populate({path:'author',model:'User'}).addCreatedAt().contentToHtml().exec()
     },
     //按创建的时间降序获取所有用户文章或者某个特定用户的所有文章
     getPosts: function getPosts (author) {
@@ -42,6 +42,21 @@ module.exports = {
       },
     //通过文章id给pv加1
     incPv:function incPv(postId){
-        return post.update({_id:postId},{$inc:{pv:1}}).exec()
+        return Post.update({_id:postId},{ $inc:{ pv:1 }}).exec()
+    },
+    //通过文章id获取原生文章
+    getRawPostById: function getRawPostById (postId) {
+        return Post
+          .findOne({ _id: postId })
+          .populate({ path: 'author', model: 'User' })
+          .exec()
+      },
+
+    updatePostById:function updatePostById(postId,data){
+        return Post.update({_id:postId},{$set:data}).exe()
+    },
+    //通过文章id删除一篇文章
+    delPostById:function delPostById(postId){
+        return Post.deleteOne({_id:postId}).exe()
     }
 }
