@@ -7,7 +7,12 @@ const checkLogin = require("../middlewares/check").checkLogin
 
 //以下是按照RESTful风格设计的路由
 router.get('/',function(req,res,next){
-    res.render('posts')
+    const author = req.query.author
+    PostModel.getPosts(author).then(function(posts){
+        res.render('posts',{
+            posts:posts
+        })
+    }).catch(next)
 })
 
 router.post('/create',checkLogin,function(req,res,next){
