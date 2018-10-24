@@ -4,7 +4,7 @@ const express = require("express")
 const router = express.Router()
 const PostModel = require('../models/posts')
 const checkLogin = require("../middlewares/check").checkLogin
-
+const CommentsModel = require('../models/comments')
 //以下是按照RESTful风格设计的路由
 router.get('/',function(req,res,next){
     const author = req.query.author
@@ -54,16 +54,19 @@ router.get('/:postId', function (req, res, next) {
   
     Promise.all([
       PostModel.getPostById(postId), // 获取文章信息
+      CommentsModel.getComments(postId),
       PostModel.incPv(postId)// pv 加 1
     ])
       .then(function (result) {
         const post = result[0]
+        const comments = result[1]
         if (!post) {
           throw new Error('该文章不存在')
         }
   
         res.render('post', {
-          post: post
+          post: post,
+          comments:comments
         })
       })
       .catch(next)
