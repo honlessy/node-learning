@@ -27,7 +27,7 @@ module.exports = {
     },
     //通过文章id删除该文章下所有留言
     delCommentByPostId:function delCommentByPostId(postId){
-        return comment.deleteMany({postId:postId}).exec()
+        return Comment.deleteMany({postId:postId}).exec()
     },
     //通过文章id获取该文章下所有留言，按留言创建时间升序
     getComments: function getComments (postId) {
@@ -41,6 +41,6 @@ module.exports = {
       },
     //通过文章id获取该文章下留言数
     getCommentsCount:function getCommentsCount(postId){
-        return comment.count({postId:postId}).exec()
+        return Comment.count({postId:postId}).exec()
     }
 }
