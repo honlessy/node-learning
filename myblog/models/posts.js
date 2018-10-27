@@ -78,15 +78,17 @@ module.exports = {
       },
 
     updatePostById:function updatePostById(postId,data){
-        return Post.update({_id:postId},{$set:data}).exe()
+        return Post.update({_id:postId},{$set:data}).exec()
     },
     //通过文章id删除一篇文章
-    delPostById:function delPostById(postId,author){
-        return Post.deleteOne({author:author,_id:postId}).exe().then(function(res){
-            //文章删除后，再删除该文章下的所有留言
-            if(res.result.ok && res.result.n > 0 ){
-                return CommentModel.delCommentByPostId(postId)
+    delPostById: function delPostById (postId, author) {
+        return Post.deleteOne({ author: author, _id: postId })
+          .exec()
+          .then(function (res) {
+            // 文章删除后，再删除该文章下的所有留言
+            if (res.result.ok && res.result.n > 0) {
+              return CommentModel.delCommentsByPostId(postId)
             }
-        })
-    }
+          })
+      }
 }
