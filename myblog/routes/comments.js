@@ -43,7 +43,7 @@ router.get('/:commentId/remove',checkLogin,function(req,res,next){
         }
         CommentModel.delCommentById(commentId).then(function(){
             req.flash('success','删除留言成功')
-            req.redirect('back')
+            res.redirect('back')
         }).catch(next)
     })
 })

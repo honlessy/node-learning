@@ -23,7 +23,7 @@ module.exports = {
     },
     //通过留言id删除一个留言
     delCommentById:function delCommentById(commentId){
-        return Comment.deleteOne({_id:commentId}).exe()
+        return Comment.deleteOne({_id:commentId}).exec()
     },
     //通过文章id删除该文章下所有留言
     delCommentByPostId:function delCommentByPostId(postId){
